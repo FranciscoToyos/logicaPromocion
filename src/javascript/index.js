@@ -41,6 +41,7 @@ window.addEventListener("load", () => {
     // Invoco a la funcion adjuntar productos
     adjuntar(productos);
   });
+  let selected = -1;
   // Funcion Adjuntar objeto en local
   function adjuntar(objeto) {
     let productos = [],
@@ -150,10 +151,10 @@ window.addEventListener("load", () => {
 
   // Llamo al local
   let productos = [],
-    objetoLocal = localStorage.getItem(localStorageKey);
+  objetoLocal = localStorage.getItem(localStorageKey);
   productos = JSON.parse(objetoLocal);
   // Sumo los values del subtotal
-  let totalValue = productos.reduce((acum, value) => {
+  let totalValue = productos.reduce(function(acum, value) {
     return acum + value.subTotal;
   }, 0);
   // Llamo al campo total(div)
@@ -200,10 +201,10 @@ window.addEventListener("load", () => {
   }
 
   // Funcion editar
-  let selected = -1;
-
+  
+  
   function editar(index){
-    selected=index;
+    selected=index
     productos = JSON.parse(objetoLocal);
     let prod = productos[index]
     document.getElementById("producto").value = prod.producto;
