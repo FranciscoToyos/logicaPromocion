@@ -15,6 +15,9 @@ window.addEventListener("load", () => {
     let precio = document.querySelector("#precio");
     let descuento = document.querySelector("#descuento");
     let subTotal = document.querySelector("#subTotal");
+
+    // Validar, no deja avanzar
+    if(producto.value.length === 0 || !parseInt(precio.value)) return;
     //  Armar objeto
     const productos = {
       producto: producto.value,
