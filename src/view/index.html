@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Examen CRUD</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 class="jumbotron mt-3 bg-warning">
+            Examen Promocional Lógica y Estructura de datos
+          </h1>
+          <h2
+            class="w-50 mb-5"
+            style="
+              color: blue;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+                sans-serif;
+            "
+          >
+            Supermercado LA LÓGICA
+          </h2>
+
+          <!-- Buscador -->
+          <form
+            class="form-inline my-2 my-lg-0 order-lg-1 flex-md-grow-1 justify-content-end"
+            
+          >
+            <input
+              class="form-control mr-sm-1 p-0 rounded-left border"
+              id="buscar"
+              type="search"
+              placeholder="Buscar productos"
+              aria-label="Search"
+             
+            />
+            <i class="fas fa-2x fa-search" style="color:lightseagreen"></i>
+           
+          </form>
+          <!-- Errores -->
+          <div>
+            <ul>
+              <li class="errorProducto error">
+                El PRODUCTO es obligatorio y colocar el nombre completo
+              </li>
+              <li class="errorCategoria error">
+                La CATEGORIA es obligatorio y colocar categoria adecuada al
+                producto
+              </li>
+              <li class="errorCantidad error">
+                La CANTIDAD es obligatorio y debe ser mayor o igual a 0
+              </li>
+              <li class="errorPrecio error">
+                El PRECIO es obligatorio y no puede ser 0
+              </li>
+              <li class="errorDescuento error">
+                El DESCUENTO no debe superar el 99%
+              </li>
+            </ul>
+          </div>
+          <!-- Tabla productos -->
+          <table id="grid" class="table table-striped text-capitalize mt-4">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Productos</th>
+                <th>Categoria</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Descuento</th>
+                <th>Subtotal</th>
+                <th style="width: 90px"></th>
+              </tr>
+              <tr id="form">
+                <th>
+                  <input
+                    id="id"
+                    type="text"
+                    class="form-control"
+                    class="products"
+                    style="display: none"
+                  />
+                </th>
+                <th>
+                  <input
+                    id="producto"
+                    type="text"
+                    class="form-control"
+                    class="products"
+                  />
+                </th>
+                <th>
+                  <select
+                    class="form-control"
+                    id="categoria"
+                    class="custom-select"
+                    name="categoria"
+                    required
+                  >
+                    <option value="" selected>Elegir</option>
+                    <option>Bebidas</option>
+                    <option>Beb Alcohol</option>
+                    <option>Almacen</option>
+                    <option>Congelados</option>
+                    <option>Enlatados</option>
+                    <option>Fiambreria</option>
+                    <option>Limpieza</option>
+                    <option>Panificacion</option>
+                  </select>
+                </th>
+                <th>
+                  <input
+                    id="cantidad"
+                    type="text"
+                    class="form-control"
+                    class="products"
+                  />
+                </th>
+                <th>
+                  <input
+                    id="precio"
+                    type="text"
+                    class="form-control"
+                    class="products"
+                    min="0"
+                  />
+                </th>
+                <th>
+                  <input
+                    id="descuento"
+                    type="text"
+                    class="form-control"
+                    class="products"
+                  />
+                </th>
+                <th>
+                  <input
+                    id="subTotal"
+                    type="text"
+                    class="form-control"
+                    class="products"
+                    style="display: none"
+                  />
+                </th>
+                <th>
+                  <button id="btn-add" type="submit" class="btn btn-success">
+                    <i class="fas fa-2x fa-plus bg-transparent"></i>
+                  </button>
+                </th>
+                <th>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-2x fa-filter bg-transparent"></i>
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Bebidas"
+                      >
+                        Bebidas
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Beb Alcohol"
+                      >
+                        Beb Alcohol
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Almacen"
+                      >
+                        Almacen
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Fiambreria"
+                      >
+                        Fiambreria
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        id="modal"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        class="dropdown-item"
+                        value="Limpieza"
+                      >
+                        Limpieza
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Panificacion"
+                      >
+                        Panificación
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Enlatados"
+                      >
+                        Enlatados
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-transparent"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        id="modal"
+                        class="dropdown-item"
+                        value="Congelados"
+                      >
+                        Congelados
+                      </button>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tbody-tr"></tbody>
+          </table>
+          <div class="badge-info w-25" style="color: black" id="tot"></div>
+        </div>
+      </div>
+
+      <!-- Modal mensaje -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">
+                Se encontraron:
+              </h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table text-capitalize">
+                <thead>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Descuento</th>
+                    <th scope="col">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody id="filtrado"></tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="cerrar"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Boostrap, Js, Popper -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+      integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Scrips propios -->
+    <script src="../javascript/index.js"></script>
+    <script src="../javascript/validacion.js"></script>
+    <script src="../javascript/busqueda.js"></script>
+    
+    
+  </body>
+</html>

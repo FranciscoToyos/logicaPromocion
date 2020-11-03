@@ -1,0 +1,10 @@
+/* errores */
+li.error {
+    display: none;
+    color:red;
+    
+}
+/* Body */
+body {
+    background-color: beige;
+}
